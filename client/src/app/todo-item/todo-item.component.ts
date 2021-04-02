@@ -13,9 +13,8 @@ import { TodoItemService } from '../_services/todo-item.service';
 export class TodoItemComponent implements OnInit {
 
   @ViewChild('editForm') editForm: NgForm;
-  todo$: Observable<TodoItem>;
   Id: number;
-  todoUpdate: TodoItem = new TodoItem;
+  todoUpdate: TodoItem;
   // @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any) {
   //   if (this.editForm.dirty) {
   //     $event.returnValue = true;
@@ -27,17 +26,17 @@ export class TodoItemComponent implements OnInit {
     const idParam = 'id';
     if (this.activatedRoute.snapshot.params[idParam]) {
       this.Id = this.activatedRoute.snapshot.params[idParam];
-      this.todoUpdate.Id = this.Id;
-      this.todoUpdate.isComplete = false;
     }
   }
 
   ngOnInit(): void {
-    this.todo$ = this.todoService.getTodoItem(this.Id);
+    this.todoService.getTodoItem(this.Id).subscribe(todo => {
+      this.todoUpdate = todo;
+    });
   }
 
   updateItem() {
-    console.log(this.todoUpdate.isComplete);
+    console.log(this.todoUpdate.id);
     this.todoService.updateTodoItem(this.todoUpdate).subscribe(() => {
       this.router.navigateByUrl('/');
     });

@@ -1,11 +1,11 @@
-<div class="container" *ngIf="todo$ | async as todo">
+<div class="container" *ngIf="todoUpdate">
     <h4>Edit TO-DO</h4>
     <form #editForm="ngForm" id="editForm" (ngSubmit)="updateItem()">
         <div class="form-inline">
             <label for="name">Name </label>
-            <input type="text" class="form-control" [(ngModel)]="todoUpdate.name" name="name" placeholder={{todo.name}}>
+            <input type="text" class="form-control" [(ngModel)]="todoUpdate.name" name="name">
             <label for="complete">Completed </label>
-            <input type="checkbox" [(ngModel)]="todoUpdate.isComplete" name="complete" checked={{todo.isComplete}}>
+            <input type="checkbox" [(ngModel)]="todoUpdate.isComplete" name="complete" checked={{todoUpdate.isComplete}}>
         </div>
     </form>
     <button form="editForm" type="submit" class="btn btn-success btn-block">Save changes</button>

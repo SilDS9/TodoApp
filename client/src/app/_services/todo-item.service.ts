@@ -28,14 +28,14 @@ export class TodoItemService {
 
   // call the API endpoint [api/todoitems/:id] to GET specified todo task
   getTodoItem(id: number) {
-    const item = this.todoItems.find(x => x.Id == id);
+    const item = this.todoItems.find(x => x.id == id);
     if (item !== undefined) return of(item);
     return this.http.get<TodoItem>(this.apiUrl + 'todoitems/' + id);
   }
 
   //call the API endpoint [api/todoitems/:id] to PUT (update) the specified todo task
   updateTodoItem(todo: TodoItem) {
-    return this.http.put(this.apiUrl + 'todoitems/' + todo.Id, todo)
+    return this.http.put(this.apiUrl + 'todoitems/' + todo.id, todo)
       .pipe(
         map(() => {
           const id = this.todoItems.indexOf(todo);
