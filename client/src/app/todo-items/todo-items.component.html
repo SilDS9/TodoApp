@@ -1,8 +1,28 @@
 <div class="container">
-    <div *ngFor="let item of todoItems$ | async">
-        <ul>
-            <li><a [routerLink]="['todos/', item.Id]">{{item.name}}</a></li>
-            <li>{{item.isComplete}}</li>
-        </ul>
-    </div>
+    <h1>Todos list</h1>
+    <p>
+        <a [routerLink]="['/add']" class="btn btn-primary float-right mb-3">New post</a>
+      </p>
+    <table 
+     class="table table-sm table-hover"
+     *ngIf="(todoItems$ | async)?.length>0">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Complete</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let todoItem of todoItems$ | async">
+                <td>{{todoItem.name}}</td>
+                <td><i *ngIf="todoItem.isComplete" class="bi bi-check-circle-fill text-success"></i></td>
+                <td><a [routerLink]="['todos/', todoItem.id]"
+                     class="btn btn-primary btn-sm float-right" type="button">Edit</a>
+                </td>
+                <td><a (click)="deleteTodo(todoItem.id)" class="btn btn-danger btn-sm float-right">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
