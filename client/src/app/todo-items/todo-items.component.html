@@ -1,0 +1,7 @@
+<div class="container">
+    <div *ngFor="let item of todoItems$ | async">
+        <ul>
+            <li>{{item.name}}</li>
+        </ul>
+    </div>
+</div>
