@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, of } from 'rxjs';
+import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { TodoItem } from '../_models/todoitem';
@@ -17,9 +17,10 @@ export class TodoItemService {
 
   getTodoItems() {
     if (this.todoItems.length > 0) return of(this.todoItems);
-    return this.http.get<TodoItem[]>(this.apiUrl + '/todoitems').pipe(
+    return this.http.get<TodoItem[]>(this.apiUrl + 'todoitems').pipe(
       map(todos => {
         this.todoItems = todos;
+        console.log(todos);
         return todos;
       })
     )
